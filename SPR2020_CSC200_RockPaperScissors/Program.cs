@@ -93,7 +93,7 @@ namespace CSC200_RockPaperScissors
 
             while (valid == false)
             {
-                Console.WriteLine("Choose R:Rock, P:Paper, or S:Scissors (Q to Quit).");
+                Console.WriteLine("Choose R:Rock, P:Paper, S:Scissors, V:Spock, or L:Lizard (Q to Quit).");
                 string userChoice = Console.ReadLine();
 
                 // user could enter an empty line
@@ -116,6 +116,16 @@ namespace CSC200_RockPaperScissors
                     case "SCISSORS":
                     case "S":
                         result = new Hand("scissors");
+                        valid = true;
+                        break;
+                    case "SPOCK":
+                    case "V":
+                        result = new Hand("spock");
+                        valid = true;
+                        break;
+                    case "LIZARD":
+                    case "L":
+                        result = new Hand("lizard");
                         valid = true;
                         break;
                     case "QUIT":
@@ -149,6 +159,14 @@ namespace CSC200_RockPaperScissors
             else if (value == 3)
             {
                 result = new Hand("scissors");
+            }
+            else if (value == 4)
+            {
+                result = new Hand("spock");
+            }
+            else if (value == 5)
+            {
+                result = new Hand("lizard");
             }
             else
             {
