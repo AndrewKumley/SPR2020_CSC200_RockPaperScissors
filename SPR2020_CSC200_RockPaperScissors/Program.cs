@@ -4,6 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+/* SOLID
+ * S - SRP - Single Responsibility Principle
+ *      An object shouldn have only one purpose
+ * O - OCP - Open Closed Principle
+ *      An object should be open for extension, closed for modification
+ * L - Liskov Substitution Principle
+ *      Any object inheriting an interface should implement that interface
+ * I - Interface Segregation Principle
+ *      An object should expose only what it needs to, and should code to that interface
+ * D - Dependency Inversion Principle
+*/
 namespace CSC200_RockPaperScissors
 {
     class Player
@@ -26,53 +38,29 @@ namespace CSC200_RockPaperScissors
         {
             get { return this._value; }
         }
+    }
 
-        public int CompareTo(Hand other)
+    class Rule
+    {
+        private readonly string _handA;
+        private readonly string _handB;
+        private readonly int _compare;
+
+        public Rule(string handA, string handB, int compare)
         {
-            // returns -1 when this hand is less then other
-            // returns 0 when this hand is equal to other
-            // return 1 when this hand is great then other
+            _handA = handA;
+            _handB = handB;
+            _compare = compare;
+        }
 
-            if (this.Value == other.Value)
-                return 0;
+        public bool canEvaluate(string handA, string handB)
+        {
+            return _handA == handA && _handB == handB;
+        }
 
-            if (this.Value == "rock")
-            {
-                if (other.Value == "scissors")
-                {
-                    return 1;
-                }
-                else if (other.Value == "paper")
-                {
-                    return -1;
-                }
-            }
-
-            if (this.Value == "paper")
-            {
-                if (other.Value == "rock")
-                {
-                    return 1;
-                }
-                else if (other.Value == "scissors")
-                {
-                    return -1;
-                }
-            }
-
-            if (this.Value == "scissors")
-            {
-                if (other.Value == "paper")
-                {
-                    return 1;
-                }
-                else if (other.Value == "rock")
-                {
-                    return -1;
-                }
-            }
-
-            return 0;
+        public int CompareTo(string handB)
+        {
+            return _compare;
         }
     }
 
@@ -81,9 +69,40 @@ namespace CSC200_RockPaperScissors
         // data fields
 
         // constructor
+
+        private ICollection<Rule> _rules;
         public GameManager()
         {
+            _rules = new List<Rule>();
+            _rules.Add(new Rule("rock", "scissors", 1));
+            _rules.Add(new Rule("rock", "paper", -1));
+            _rules.Add(new Rule("rock", "rock", 0));
+            _rules.Add(new Rule("rock", "lizard", 1));
+            _rules.Add(new Rule("rock", "spock", -1));
 
+            _rules.Add(new Rule("scissors", "paper", 1));
+            _rules.Add(new Rule("scissors", "rock", -1));
+            _rules.Add(new Rule("scissors", "scissors", 0));
+            _rules.Add(new Rule("scissors", "lizard", 1));
+            _rules.Add(new Rule("scissors", "spock", -1));
+
+            _rules.Add(new Rule("paper", "rock", 1));
+            _rules.Add(new Rule("paper", "scissors", -1));
+            _rules.Add(new Rule("paper", "paper", 0));
+            _rules.Add(new Rule("paper", "spock", 1));
+            _rules.Add(new Rule("paper", "lizard", -1));
+
+            _rules.Add(new Rule("lizard", "spock", 1));
+            _rules.Add(new Rule("lizard", "rock", -1));
+            _rules.Add(new Rule("lizard", "lizard", 0));
+            _rules.Add(new Rule("lizard", "paper", 1));
+            _rules.Add(new Rule("lizard", "scissors", -1));
+
+            _rules.Add(new Rule("spock", "rock", 1));
+            _rules.Add(new Rule("spock", "lizard", -1));
+            _rules.Add(new Rule("spock", "spock", 0));
+            _rules.Add(new Rule("spock", "scissors", 1));
+            _rules.Add(new Rule("spock", "paper", -1));
         }
 
         private Hand GetUserHand()
@@ -186,17 +205,7 @@ namespace CSC200_RockPaperScissors
                 // get a hand for the computer
                 Hand computerHand = GenerateRandomHand();
 
-                if (computerHand.CompareTo(userHand) < 0)
-                {
-                    Console.WriteLine("The player chose {0} and computer chose {1}, player wins!", userHand.Value, computerHand.Value);
-                }
-                else if (computerHand.CompareTo(userHand) > 0)
-                {
-                    Console.WriteLine("The player chose {0} and computer chose {1}, player loses!", userHand.Value, computerHand.Value);
-                }
-                else
-                {
-                    Console.WriteLine("The computer and you chose {0}, its a tie!", computerHand.Value);
+                
                 }
 
                 Console.WriteLine();
