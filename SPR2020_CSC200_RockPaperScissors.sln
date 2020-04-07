@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SPR2020_CSC200_RockPaperScissors", "SPR2020_CSC200_RockPaperScissors\SPR2020_CSC200_RockPaperScissors.csproj", "{3819880C-2693-460A-9BD0-FEB3DCFECE47}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{683F4D4F-6D05-46BA-83D7-EB9F0F1F6173}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{3819880C-2693-460A-9BD0-FEB3DCFECE47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3819880C-2693-460A-9BD0-FEB3DCFECE47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3819880C-2693-460A-9BD0-FEB3DCFECE47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{683F4D4F-6D05-46BA-83D7-EB9F0F1F6173}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{683F4D4F-6D05-46BA-83D7-EB9F0F1F6173}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{683F4D4F-6D05-46BA-83D7-EB9F0F1F6173}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{683F4D4F-6D05-46BA-83D7-EB9F0F1F6173}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

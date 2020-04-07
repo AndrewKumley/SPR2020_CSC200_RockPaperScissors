@@ -58,54 +58,15 @@ namespace CSC200_RockPaperScissors
             return _handA == handA && _handB == handB;
         }
 
-        public int CompareTo(string handB)
+        public int CompareTo()
         {
             return _compare;
         }
     }
-
-    class GameManager
+    
+    class HandSelector
     {
-        // data fields
-
-        // constructor
-
-        private ICollection<Rule> _rules;
-        public GameManager()
-        {
-            _rules = new List<Rule>();
-            _rules.Add(new Rule("rock", "scissors", 1));
-            _rules.Add(new Rule("rock", "paper", -1));
-            _rules.Add(new Rule("rock", "rock", 0));
-            _rules.Add(new Rule("rock", "lizard", 1));
-            _rules.Add(new Rule("rock", "spock", -1));
-
-            _rules.Add(new Rule("scissors", "paper", 1));
-            _rules.Add(new Rule("scissors", "rock", -1));
-            _rules.Add(new Rule("scissors", "scissors", 0));
-            _rules.Add(new Rule("scissors", "lizard", 1));
-            _rules.Add(new Rule("scissors", "spock", -1));
-
-            _rules.Add(new Rule("paper", "rock", 1));
-            _rules.Add(new Rule("paper", "scissors", -1));
-            _rules.Add(new Rule("paper", "paper", 0));
-            _rules.Add(new Rule("paper", "spock", 1));
-            _rules.Add(new Rule("paper", "lizard", -1));
-
-            _rules.Add(new Rule("lizard", "spock", 1));
-            _rules.Add(new Rule("lizard", "rock", -1));
-            _rules.Add(new Rule("lizard", "lizard", 0));
-            _rules.Add(new Rule("lizard", "paper", 1));
-            _rules.Add(new Rule("lizard", "scissors", -1));
-
-            _rules.Add(new Rule("spock", "rock", 1));
-            _rules.Add(new Rule("spock", "lizard", -1));
-            _rules.Add(new Rule("spock", "spock", 0));
-            _rules.Add(new Rule("spock", "scissors", 1));
-            _rules.Add(new Rule("spock", "paper", -1));
-        }
-
-        private Hand GetUserHand()
+        public Hand GetUserHand()
         {
             bool valid = false;
             Hand result = new Hand("");
@@ -160,7 +121,7 @@ namespace CSC200_RockPaperScissors
             return result;
         }
 
-        private Hand GenerateRandomHand()
+        public Hand GetRandomHand()
         {
             // 1 = rock, 2 = paper, 3 = scissors
             Random random = new Random();
@@ -194,34 +155,112 @@ namespace CSC200_RockPaperScissors
 
             return result;
         }
+    }
+    class GameManager
+    {
+        // data fields
+
+        // constructor
+
+        private ICollection<Rule> _rules = new List<Rule>();
+        private HandSelector _handSelector;
+
+
+        public GameManager(ICollection<Rule> _rules)
+        {
+            this._rules = _rules;
+            _handSelector = new HandSelector();
+        }
 
         // methods
         public void StartPlay()
         {
             // get the hand from the user
-            Hand userHand = GetUserHand();
+            Hand userHand = _handSelector.GetUserHand();
             while (userHand.Value != "quit")
             {
                 // get a hand for the computer
-                Hand computerHand = GenerateRandomHand();
+                Hand computerHand = _handSelector.GetRandomHand();
+                foreach(Rule rule in _rules)
+                {
+                    if (rule.canEvaluate(userHand.Value, computerHand.Value))
+                    {
+                        if (rule.CompareTo() > 0)
+                        {
 
+                        } else if (rule.CompareTo() < 0)
+                        {
+
+                        } else
+                        {
+
+                        }
+                    }
+                }
                 
                 }
 
                 Console.WriteLine();
 
                 // get the hand from the user
-                userHand = GetUserHand();
+                userHand = _handSelector.GetUserHand();
             }
         }
-    }
-
     class Program
     {
         static void Main(string[] args)
         {
-            GameManager manager = new GameManager();
 
+            ICollection<Rule> RPSLS;
+
+            RPSLS = new List<Rule>();
+            RPSLS.Add(new Rule("rock", "scissors", 1));
+            RPSLS.Add(new Rule("rock", "paper", -1));
+            RPSLS.Add(new Rule("rock", "rock", 0));
+            RPSLS.Add(new Rule("rock", "lizard", 1));
+            RPSLS.Add(new Rule("rock", "spock", -1));
+
+            RPSLS.Add(new Rule("scissors", "paper", 1));
+            RPSLS.Add(new Rule("scissors", "rock", -1));
+            RPSLS.Add(new Rule("scissors", "scissors", 0));
+            RPSLS.Add(new Rule("scissors", "lizard", 1));
+            RPSLS.Add(new Rule("scissors", "spock", -1));
+
+            RPSLS.Add(new Rule("paper", "rock", 1));
+            RPSLS.Add(new Rule("paper", "scissors", -1));
+            RPSLS.Add(new Rule("paper", "paper", 0));
+            RPSLS.Add(new Rule("paper", "spock", 1));
+            RPSLS.Add(new Rule("paper", "lizard", -1));
+
+            RPSLS.Add(new Rule("lizard", "spock", 1));
+            RPSLS.Add(new Rule("lizard", "rock", -1));
+            RPSLS.Add(new Rule("lizard", "lizard", 0));
+            RPSLS.Add(new Rule("lizard", "paper", 1));
+            RPSLS.Add(new Rule("lizard", "scissors", -1));
+
+            RPSLS.Add(new Rule("spock", "rock", 1));
+            RPSLS.Add(new Rule("spock", "lizard", -1));
+            RPSLS.Add(new Rule("spock", "spock", 0));
+            RPSLS.Add(new Rule("spock", "scissors", 1));
+            RPSLS.Add(new Rule("spock", "paper", -1));
+
+            ICollection<Rule> RPS;
+
+            RPS = new List<Rule>();
+            RPS.Add(new Rule("rock", "scissors", 1));
+            RPS.Add(new Rule("rock", "paper", -1));
+            RPS.Add(new Rule("rock", "rock", 0));
+
+            RPS.Add(new Rule("scissors", "paper", 1));
+            RPS.Add(new Rule("scissors", "rock", -1));
+            RPS.Add(new Rule("scissors", "scissors", 0));
+
+            RPS.Add(new Rule("paper", "rock", 1));
+            RPS.Add(new Rule("paper", "scissors", -1));
+            RPS.Add(new Rule("paper", "paper", 0));
+
+            GameManager manager = new GameManager(RPSLS);
+            
             manager.StartPlay();
 
             Console.ReadLine();
